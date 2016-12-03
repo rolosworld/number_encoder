@@ -1,1 +1,56 @@
-<h1>Hello</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=8"/>
+
+    <title>Number Encoder</title>
+    <meta name="description" content="Number Encoder"/>
+    <script src="/static/contribs/Meta/meta.debug.js"></script>
+  </head>
+  <body>
+    <form action="#" type="post" onsubmit="return false;">
+      <table>
+        <tr>
+          <th>Type</th>
+          <td>
+            <select name="enc_type" onchange="enc=NumberEncoder(NumberEncoder.MAPS[this.value]);">
+              <option value="b64">b64</option>
+              <option value="b62">b62</option>
+              <option value="hex">hex</option>
+              <option value="bin">bin</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>Decoded</th>
+          <td><input type="text" id="decoded" name="decoded"/></td>
+        </tr>
+        <tr>
+          <th>Encoded</th>
+          <td><input type="text" id="encoded" name="encoded"/></td>
+        </tr>
+        <tr>
+          <td><input type="submit" value="Encode" onclick="num_enc();return false;"/></td>
+          <td><input type="submit" value="Decode" onclick="num_dec();return false;"/></td>
+        </tr>
+      </table>
+    </form>
+
+    <script src="number_encoder.js"></script>
+    <script>
+      var $t = document.getElementById('enc_type');
+      var $e = document.getElementById('encoded');
+      var $d = document.getElementById('decoded');
+      var enc = NumberEncoder(NumberEncoder.MAPS.b64);
+
+      function num_enc() {
+          $e.value = enc.encode($d.value);
+      };
+
+      function num_dec() {
+          $d.value = enc.decode($e.value);
+      };
+    </script>
+  </body>
+</html>
