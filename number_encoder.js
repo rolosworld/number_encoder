@@ -60,6 +60,7 @@ var NumberEncoder = function(map) {
 NumberEncoder.MAPS = {
     b64: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
     b62: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    b36: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
     hex: '0123456789abcdef',
     bin: '01'
 };
