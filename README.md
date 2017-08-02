@@ -18,13 +18,13 @@ console.log('encoded: ' + encoded);
 
 console.log('decoded: ' + decoded);
 
-console.log('input and output matched: '+ decoded == exampleNumber); 
+console.log('input and output matched: '+ (decoded === exampleNumber?1:0));
 
-``` 
+```
 basic usage PHP:
 ```php
 
-$preferredCoder = new NumberEncoder;
+$preferredCoder = new NumberEncoder( NumberEncoder::$maps['b62'] );
 
 $exampleNumber = 123123123;
 
@@ -38,5 +38,5 @@ echo 'encoded: '. $encoded . '<br/>';
 
 echo 'decoded: '. $decoded . '<br/>';
 
-echo 'input and output matched: '. $decoded == $exampleNumber . '(1 = true, 0 = false)'; 
+echo 'input and output matched: '. $decoded == $exampleNumber . '(1 = true, 0 = false)';
 ```
