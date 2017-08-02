@@ -2,11 +2,11 @@
 Encode numeric value to a string representation using a string with unique characters as the encoder map.
 
 Predefined maps:
-b64 - Encodes into base64
-b62 - Encodes into base62
-b36 - Encodes into base36
-hex - Encodes into hexadecimal
-bin - Encodes into binary
+* b64 - Encodes into base64
+* b62 - Encodes into base62
+* b36 - Encodes into base36
+* hex - Encodes into hexadecimal
+* bin - Encodes into binary
 
 Basic usage JS:
 
