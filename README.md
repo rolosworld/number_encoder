@@ -1,7 +1,14 @@
 # number_encoder #
-Encode numeric value to a string representation using a map of characters.
+Encode numeric value to a string representation using a string with unique characters as the encoder map.
 
-basic usage JS:
+Predefined maps:
+b64 - Encodes into base64
+b62 - Encodes into base62
+b36 - Encodes into base36
+hex - Encodes into hexadecimal
+bin - Encodes into binary
+
+Basic usage JS:
 
 ```javascript
 var preferredCoder = NumberEncoder(NumberEncoder.MAPS.b62);
@@ -21,7 +28,7 @@ console.log('decoded: ' + decoded);
 console.log('input and output matched: '+ (decoded === exampleNumber?1:0));
 
 ```
-basic usage PHP:
+Basic usage PHP:
 ```php
 
 $preferredCoder = new NumberEncoder( NumberEncoder::$maps['b62'] );
