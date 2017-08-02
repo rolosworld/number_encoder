@@ -15,28 +15,11 @@
  You should have received a copy of the GNU General Public License
  along with number_encoder.  If not, see <http://www.gnu.org/licenses/>.
 */
-function NumberEncoder(mapName) {
-  if(mapName !== 'b64' &&
-     mapName !== 'b62' &&
-     mapName !== 'b36' && 
-     mapName !== 'hex' &&
-     mapName !== 'bin'){
-    return console.error('NumberEncoder invalid argument.');
-  }
-  
-    this.maps = {
-    b64: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
-    b62: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    b36: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    hex: '0123456789abcdef',
-    bin: '01'
-    };
-  
-    var map = this.maps[mapName];
+var NumberEncoder = function(map) {
     var base = map.length;
-    
-  
-    this.encode = function(value) {
+
+    return {
+        encode: function(value) {
             var mod = 0;
             var out = '';
             var c;
@@ -55,7 +38,7 @@ function NumberEncoder(mapName) {
             return out;
         },
 
-        this.decode = function(encoded) {
+        decode: function(encoded) {
             var len = encoded.length;
 
             var out;
@@ -68,13 +51,23 @@ function NumberEncoder(mapName) {
                     out = base * out + v;
                 }
             }
+
             return out;
         }
-     return this;
-}
+    };
+};
+
+NumberEncoder.MAPS = {
+    b64: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
+    b62: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    b36: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    hex: '0123456789abcdef',
+    bin: '01'
+};
+
 /*
-  var b64coder = NumberEncoder('b64');
-  var ecd = b64coder.encode(1234);
-  console.log(ecd);
-  console.log(b64coder.decode(ecd));
+  var enc = NumberEncoder(NumberEncoder.b64);
+  var d = enc.encode(1234);
+  console.log(d);
+  console.log(enc.decode(d));
 */
