@@ -1,7 +1,7 @@
 /*
  Copyright (c) 2016 Rolando González Chévere <rolosworld@gmail.com>
  
- This file is part of Meta.
+ This file is part of number_encoder.
  
  number_encoder is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License version 3
@@ -66,8 +66,8 @@ NumberEncoder.MAPS = {
 };
 
 /*
-  var enc = NumberEncoder(NumberEncoder.b64);
-  var d = enc.encode(1234);
-  console.log(d);
-  console.log(enc.decode(d));
+  var b64coder = NumberEncoder(NumberEncoder.MAPS.b64);
+  var ecd = b64coder.encode(1234);
+  console.log(ecd);
+  console.log(b64coder.decode(ecd));
 */
