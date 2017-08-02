@@ -8,7 +8,7 @@ Predefined maps:
 * hex - Encodes into hexadecimal
 * bin - Encodes into binary
 
-Basic usage JS:
+Basic usage JS [EXAMPLE](https://rolosworld.github.io/number_encoder/):
 
 ```javascript
 var preferredCoder = NumberEncoder(NumberEncoder.MAPS.b62);
