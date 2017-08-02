@@ -4,7 +4,7 @@ Encode numeric value to a string representation using a map of characters.
 basic usage JS:
 
 ```javascript
-var preferredCoder = NumberEncoder('b62');
+var preferredCoder = NumberEncoder(NumberEncoder.MAPS.b62);
 
 var exampleNumber = 123123123;
 
