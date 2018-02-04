@@ -15,40 +15,34 @@
  You should have received a copy of the GNU General Public License
  along with number_encoder.  If not, see <http://www.gnu.org/licenses/>.
 */
-var NumberEncoder = function(map) {
+var NumberEncoder = function( map ) {
     var base = map.length;
 
-    return {
-        encode: function(value) {
-            var mod = 0;
-            var out = '';
-            var c;
+    var pam = [];
+    for ( var i = 0; i < map.length; i++ ) {
+        pam[ map.charCodeAt( i ) ] = i;
+    }
 
-            while (value >= base) {
-                mod = value % base;
-                value = value / base;
-                value = parseInt( value, 10 );
-                c = map.charAt( mod );
-                out = c.concat( out );
+    return {
+        encode: function( value ) {
+            var out = [];
+
+            while ( value ) {
+                out.unshift( map.charAt( value % base ) );
+                value = Math.floor( value / base );
             }
 
-            c = map.charAt( value );
-            out = c.concat( out );
-
-            return out;
+            return out.join( '' );
         },
 
-        decode: function(encoded) {
+        decode: function( encoded ) {
             var len = encoded.length;
 
             var out;
-            if (len) {
-                var v;
+            if ( len ) {
                 out = 0;
-                for (var i = 0; i < len; i++) {
-                    v = encoded.charAt( i );
-                    v = map.indexOf( v );
-                    out = base * out + v;
+                for ( var i = 0; i < len; i++ ) {
+                    out = base * out + pam[ encoded.charCodeAt( i ) ];
                 }
             }
 
