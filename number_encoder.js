@@ -38,7 +38,7 @@ var NumberEncoder = function( map ) {
         decode: function( encoded ) {
             var len = encoded.length;
 
-            var out;
+            var out = '';
             if ( len ) {
                 out = 0;
                 for ( var i = 0; i < len; i++ ) {
