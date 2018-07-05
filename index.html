@@ -4,6 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 
+    <style>
+      #encodedMsg,#decodedMsg {
+          color: red;
+      }
+    </style>
+
     <title>Number Encoder</title>
     <meta name="description" content="Number Encoder"/>
   </head>
@@ -13,7 +19,7 @@
         <tr>
           <th>Type</th>
           <td>
-            <select name="enc_type" onchange="enc=NumberEncoder(NumberEncoder.MAPS[this.value]);">
+            <select id="enc_type" name="enc_type" onchange="enc=NumberEncoder(NumberEncoder.MAPS[this.value]);">
               <option value="b64">b64</option>
               <option value="b62">b62</option>
               <option value="b36">b36</option>
@@ -24,11 +30,11 @@
         </tr>
         <tr>
           <th>Decoded</th>
-          <td><input type="text" id="decoded" name="decoded"/></td>
+          <td><input type="text" id="decoded" name="decoded"/> <span id="decodedMsg"></span></td>
         </tr>
         <tr>
           <th>Encoded</th>
-          <td><input type="text" id="encoded" name="encoded"/></td>
+          <td><input type="text" id="encoded" name="encoded"/> <span id="encodedMsg"></span></td>
         </tr>
         <tr>
           <td><input type="submit" value="Encode" onclick="num_enc();return false;"/></td>
@@ -42,6 +48,8 @@
       var $t = document.getElementById('enc_type');
       var $e = document.getElementById('encoded');
       var $d = document.getElementById('decoded');
+      var $emsg = document.getElementById('encodedMsg');
+      var $dmsg = document.getElementById('decodedMsg');
       var enc = NumberEncoder(NumberEncoder.MAPS.b64);
 
       function num_enc() {
@@ -50,6 +58,44 @@
 
       function num_dec() {
           $d.value = enc.decode($e.value);
+      };
+
+      $d.onchange = function() {
+          if (this.value.match(/\D/)) {
+              $dmsg.innerHTML = 'Invalid character';
+          }
+          else {
+              $dmsg.innerHTML = '';
+          }
+
+          this.value = this.value.replace(/\D/g, '');
+          return true;
+      };
+
+      $e.onchange = function() {
+          var valid = '';
+          var invalid = 0;
+          var map = NumberEncoder.MAPS[$t.value];
+
+          for (var i = 0; i < this.value.length; i++) {
+              var c = this.value.charAt(i);
+              if (map.indexOf(c) != -1) {
+                  valid += c;
+              }
+              else {
+                  invalid = 1;
+              }
+          }
+
+          if (invalid) {
+              $emsg.innerHTML = 'Invalid character';
+          }
+          else {
+              $emsg.innerHTML = '';
+          }
+
+          this.value = valid;
+          return true;
       };
     </script>
   </body>
