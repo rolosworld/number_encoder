@@ -37,27 +37,31 @@
           <td><input type="text" id="encoded" name="encoded"/> <span id="encodedMsg"></span></td>
         </tr>
         <tr>
-          <td><input type="submit" value="Encode" onclick="num_enc();return false;"/></td>
-          <td><input type="submit" value="Decode" onclick="num_dec();return false;"/></td>
+          <td><input type="submit" id="enc_submit" value="Encode"/></td>
+          <td><input type="submit" id="dec_submit" value="Decode"/></td>
         </tr>
       </table>
     </form>
 
-    <script src="js/number_encoder.js"></script>
-    <script>
-      var $t = document.getElementById('enc_type');
-      var $e = document.getElementById('encoded');
-      var $d = document.getElementById('decoded');
-      var $emsg = document.getElementById('encodedMsg');
-      var $dmsg = document.getElementById('decodedMsg');
-      var enc = NumberEncoder(NumberEncoder.MAPS.b64);
+    <script type="module">
+      import {MAPS, NumberEncoder} from './js/number_encoder.mjs';
+      let $t = document.getElementById('enc_type');
+      let $e = document.getElementById('encoded');
+      let $d = document.getElementById('decoded');
+      let $es = document.getElementById('enc_submit');
+      let $ds = document.getElementById('dec_submit');
+      let $emsg = document.getElementById('encodedMsg');
+      let $dmsg = document.getElementById('decodedMsg');
+      let enc = NumberEncoder(MAPS.b64);
 
-      function num_enc() {
+      $es.onclick = function() {
           $e.value = enc.encode($d.value);
+	  return false;
       };
 
-      function num_dec() {
+      $ds.onclick = function() {
           $d.value = enc.decode($e.value);
+	  return false;
       };
 
       $d.onchange = function() {
@@ -73,12 +77,12 @@
       };
 
       $e.onchange = function() {
-          var valid = '';
-          var invalid = 0;
-          var map = NumberEncoder.MAPS[$t.value];
+          let valid = '';
+          let invalid = 0;
+          let map = NumberEncoder.MAPS[$t.value];
 
-          for (var i = 0; i < this.value.length; i++) {
-              var c = this.value.charAt(i);
+          for (let i = 0; i < this.value.length; i++) {
+              let c = this.value.charAt(i);
               if (map.indexOf(c) != -1) {
                   valid += c;
               }
