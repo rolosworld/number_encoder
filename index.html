@@ -6,7 +6,7 @@
 
     <style>
       #encodedMsg,#decodedMsg {
-          color: red;
+	  color: red;
       }
     </style>
 
@@ -16,35 +16,36 @@
   <body>
     <form action="#" type="post" onsubmit="return false;">
       <table>
-        <tr>
-          <th>Type</th>
-          <td>
-            <select id="enc_type" name="enc_type" onchange="enc=NumberEncoder(NumberEncoder.MAPS[this.value]);">
-              <option value="b64">b64</option>
-              <option value="b62">b62</option>
-              <option value="b36">b36</option>
-              <option value="hex">hex</option>
-              <option value="bin">bin</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <th>Decoded</th>
-          <td><input type="text" id="decoded" name="decoded"/> <span id="decodedMsg"></span></td>
-        </tr>
-        <tr>
-          <th>Encoded</th>
-          <td><input type="text" id="encoded" name="encoded"/> <span id="encodedMsg"></span></td>
-        </tr>
-        <tr>
-          <td><input type="submit" id="enc_submit" value="Encode"/></td>
-          <td><input type="submit" id="dec_submit" value="Decode"/></td>
-        </tr>
+	<tr>
+	  <th>Type</th>
+	  <td>
+	    <select id="enc_type" name="enc_type">
+	      <option value="b64">b64</option>
+	      <option value="b62">b62</option>
+	      <option value="b36">b36</option>
+	      <option value="hex">hex</option>
+	      <option value="bin">bin</option>
+	    </select>
+	  </td>
+	</tr>
+	<tr>
+	  <th>Decoded</th>
+	  <td><input type="text" id="decoded" name="decoded"/> <span id="decodedMsg"></span></td>
+	</tr>
+	<tr>
+	  <th>Encoded</th>
+	  <td><input type="text" id="encoded" name="encoded"/> <span id="encodedMsg"></span></td>
+	</tr>
+	<tr>
+	  <td><input type="submit" id="enc_submit" value="Encode"/></td>
+	  <td><input type="submit" id="dec_submit" value="Decode"/></td>
+	</tr>
       </table>
     </form>
 
     <script type="module">
       import {MAPS, NumberEncoder} from './js/number_encoder.mjs';
+
       let $t = document.getElementById('enc_type');
       let $e = document.getElementById('encoded');
       let $d = document.getElementById('decoded');
@@ -55,51 +56,55 @@
       let enc = NumberEncoder(MAPS.b64);
 
       $es.onclick = function() {
-          $e.value = enc.encode($d.value);
+	  $e.value = enc.encode($d.value);
 	  return false;
       };
 
       $ds.onclick = function() {
-          $d.value = enc.decode($e.value);
+	  $d.value = enc.decode($e.value);
 	  return false;
       };
 
-      $d.onchange = function() {
-          if (this.value.match(/\D/)) {
-              $dmsg.innerHTML = 'Valid characters: 0123456789';
-          }
-          else {
-              $dmsg.innerHTML = '';
-          }
+      $t.onchange = function() {
+	  enc = NumberEncoder(MAPS[this.value]);
+      };
 
-          this.value = this.value.replace(/\D/g, '');
-          return true;
+      $d.onchange = function() {
+	  if (this.value.match(/\D/)) {
+	      $dmsg.innerHTML = 'Valid characters: 0123456789';
+	  }
+	  else {
+	      $dmsg.innerHTML = '';
+	  }
+
+	  this.value = this.value.replace(/\D/g, '');
+	  return true;
       };
 
       $e.onchange = function() {
-          let valid = '';
-          let invalid = 0;
-          let map = NumberEncoder.MAPS[$t.value];
+	  let valid = '';
+	  let invalid = 0;
+	  let map = MAPS[$t.value];
 
-          for (let i = 0; i < this.value.length; i++) {
-              let c = this.value.charAt(i);
-              if (map.indexOf(c) != -1) {
-                  valid += c;
-              }
-              else {
-                  invalid = 1;
-              }
-          }
+	  for (let i = 0; i < this.value.length; i++) {
+	      let c = this.value.charAt(i);
+	      if (map.indexOf(c) != -1) {
+		  valid += c;
+	      }
+	      else {
+		  invalid = 1;
+	      }
+	  }
 
-          if (invalid) {
-              $emsg.innerHTML = 'Valid characters: ' + map;
-          }
-          else {
-              $emsg.innerHTML = '';
-          }
+	  if (invalid) {
+	      $emsg.innerHTML = 'Valid characters: ' + map;
+	  }
+	  else {
+	      $emsg.innerHTML = '';
+	  }
 
-          this.value = valid;
-          return true;
+	  this.value = valid;
+	  return true;
       };
     </script>
   </body>
